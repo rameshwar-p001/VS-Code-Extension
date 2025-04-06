@@ -36,9 +36,9 @@ This is a powerful VS Code extension that brings an AI chat assistant directly i
 
 3. Run the extension:
 
-Press F5 to open a new Extension Development Host window.
+      Press F5 to open a new Extension Development Host window.
 
-Open the Command Palette (Ctrl+Shift+P) → Chat Assistant: Start.
+      Open the Command Palette (Ctrl+Shift+P) → Chat Assistant: Start.
 
 📁 Tech Stack
 🧩 JavaScript (VS Code Extension API)
