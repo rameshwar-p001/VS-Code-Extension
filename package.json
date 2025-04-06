@@ -1,0 +1,40 @@
+{
+  "name": "chat-assistant",
+  "displayName": "Chat Assistant",
+  "description": "VS Code sidebar assistant using local logic",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "main": "./extension.js",
+  "activationEvents": [
+    "onView:chatAssistantView",
+    "onCommand:chatAssistant.start"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "chatAssistantSidebar",
+          "title": "Chat Assistant",
+          "icon": "resources/chat.svg"
+        }
+      ]
+    },
+    "views": {
+      "chatAssistantSidebar": [
+        {
+          "id": "chatAssistantView",
+          "name": "Assistant",
+          "type": "webview"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "chatAssistant.start",
+        "title": "Start Chat Assistant"
+      }
+    ]
+  }
+}
