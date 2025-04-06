@@ -32,9 +32,9 @@ This is a powerful VS Code extension that brings an AI chat assistant directly i
 1. Install [Ollama](https://ollama.com/) and run:
    ```bash
    ollama run deepseek-coder
-Clone this repo and open it in VS Code.
+2. Clone this repo and open it in VS Code.
 
-Run the extension:
+3. Run the extension:
 
 Press F5 to open a new Extension Development Host window.
 
@@ -51,7 +51,9 @@ Open the Command Palette (Ctrl+Shift+P) → Chat Assistant: Start.
 
 🙌 Credits
 Made with ❤️ by Patil Rameshwar D
+
 📍 Pimpri Chinchwad University
+
 Special thanks to Mrs. Ruchira K Karanjikar for constant guidance.
 
 📌 Screenshot
