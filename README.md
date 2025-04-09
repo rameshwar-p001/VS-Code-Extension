@@ -58,5 +58,9 @@ Made with ❤️ by Patil Rameshwar D
 ![WhatsApp Image 2025-04-09 at 20 19 52_7e96fcf8](https://github.com/user-attachments/assets/eb6594e6-9a8e-4d9e-b569-50ff9bdb1d85)
 
 
+![image](https://github.com/user-attachments/assets/60091937-11e1-45ff-9867-582e1e4ed44c)
+
+
+
 📌 Note
 This is an experimental personal project integrating LLMs locally. Feel free to fork and improve it!
