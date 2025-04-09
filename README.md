@@ -1,6 +1,6 @@
-# Chat Assistant Extension
+# Chat Assistant VS-Code Extension
 
-This is a VS Code sidebar extension that allows you to chat with a locally running LLM (DeepSeek Coder) using Ollama. It supports prompt sending, response display, and a nice chat-style interface.
+This is a VS Code sidebar extension that allows you to chat with a locally running LLM using Ollama. It supports prompt sending, response display, and a nice chat-style interface.
 
 ## Features
 - Send prompts to DeepSeek Coder via localhost
@@ -31,7 +31,7 @@ This is a powerful VS Code extension that brings an AI chat assistant directly i
 
 1. Install [Ollama](https://ollama.com/) and run:
    ```bash
-   ollama run deepseek-coder
+   ollama run tinyLlama
 2. Clone this repo and open it in VS Code.
 
 3. Run the extension:
@@ -47,16 +47,19 @@ This is a powerful VS Code extension that brings an AI chat assistant directly i
 
 🔗 HTTP (connects to localhost:11434 for model inference)
 
-🧠 DeepSeek Coder via Ollama
+🧠 TinyLlma Coder via Ollama
 
 🙌 Credits
-Made with ❤️ by Patil Rameshwar D
 
-📍 Pimpri Chinchwad University
+   Made with ❤️ by Patil Rameshwar D
 
-Special thanks to Mrs. Ruchira K Karanjikar for constant guidance.
 
 📌 Screenshot
+
+
+![image](https://github.com/user-attachments/assets/60091937-11e1-45ff-9867-582e1e4ed44c)
+
+
 
 📌 Note
 This is an experimental personal project integrating LLMs locally. Feel free to fork and improve it!
