@@ -52,9 +52,6 @@ This is a powerful VS Code extension that brings an AI chat assistant directly i
 🙌 Credits
 Made with ❤️ by Patil Rameshwar D
 
-📍 Pimpri Chinchwad University
-
-Special thanks to Mrs. Ruchira K Karanjikar for constant guidance.
 
 📌 Screenshot
 
