@@ -47,7 +47,7 @@ This is a powerful VS Code extension that brings an AI chat assistant directly i
 
 🔗 HTTP (connects to localhost:11434 for model inference)
 
-🧠 DeepSeek Coder via Ollama
+🧠 TinyLlma Coder via Ollama
 
 🙌 Credits
 Made with ❤️ by Patil Rameshwar D
