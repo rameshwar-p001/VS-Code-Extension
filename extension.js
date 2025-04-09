@@ -1,5 +1,5 @@
 const vscode = require('vscode');
-const fetch = require('node-fetch'); // Make sure this is installed with `npm install node-fetch`
+const fetch = require('node-fetch'); 
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -50,269 +50,222 @@ class ChatViewProvider {
 
   getHtml() {
     return `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      background-color: #1e1e1e;
-      color: white;
-      display: flex;
-      height: 100vh;
-    }
+      <!DOCTYPE html>
+    <html lang="en">
 
-    .sidebar {
-      width: 220px;
-      background-color: #252526;
-      padding: 10px;
-      border-right: 1px solid #333;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
+    <head>
+      <meta charset="UTF-8">
+      <style>
+        body {
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          height: 100vh;
+          font-family: "Segoe UI", sans-serif;
+          background-color: #1e1e1e;
+          color: #ffffff;
+        }
 
-    .prompt-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+        #chat {
+          flex: 1;
+          padding: 1rem;
+          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
 
-    .sidebar-search {
-      margin-top: auto;
-      padding: 10px;
-      margin-right: 20px;
-    }
+        .message {
+          max-width: 80%;
+          padding: 0.75rem 1rem;
+          border-radius: 8px;
+          white-space: pre-wrap;
+          word-wrap: break-word;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+          animation: fadeIn 0.2s ease-in-out;
+        }
 
-    .sidebar h3 {
-      margin: 0 0 10px;
-      font-size: 16px;
-      color: #0e84d8;
-    }
+        .user {
+          align-self: flex-end;
+          background-color: #007acc;
+          color: white;
+        }
 
-    .sidebar button {
-      background-color: #2d2d30;
-      border: none;
-      color: white;
-      padding: 8px;
-      text-align: left;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+        .assistant {
+          align-self: flex-start;
+          background-color: #2d2d30;
+          color: #dcdcdc;
+        }
 
-    .sidebar button:hover {
-      background-color: #3a3d41;
-    }
+        #loading {
+          align-self: flex-start;
+          background-color: #2d2d30;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          display: flex;
+          gap: 5px;
+          align-items: center;
+        }
 
-    .main-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
+        .dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background-color: #dcdcdc;
+          animation: blink 1.4s infinite both;
+        }
 
-    header {
-      background-color: #007acc;
-      padding: 10px 16px;
-      font-size: 18px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+        .dot:nth-child(2) {
+          animation-delay: 0.2s;
+        }
 
-    .chat-container {
-      flex: 1;
-      padding: 14px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-    }
+        .dot:nth-child(3) {
+          animation-delay: 0.4s;
+        }
 
-    .message {
-      margin: 10px 0;
-      padding: 10px 14px;
-      border-radius: 8px;
-      max-width: 70%;
-      line-height: 1.5;
-      word-wrap: break-word;
-      position: relative;
-    }
+        @keyframes blink {
+          0%, 80%, 100% {
+            opacity: 0;
+          }
 
-    .user {
-      align-self: flex-end;
-      background-color: #3a3d41;
-    }
+          40% {
+            opacity: 1;
+          }
+        }
 
-    .assistant {
-      align-self: flex-start;
-      background-color: #2d2d30;
-    }
+        #input-area {
+          padding: 0.75rem;
+          display: flex;
+          gap: 0.5rem;
+          margin: 10px 20px 10px 20px;
+          border-radius: 20px;
+          border-top: 1px solid #3c3c3c;
+          background-color: #2c2c2c;
+        }
 
-    .timestamp {
-      font-size: 10px;
-      color: #aaa;
-      margin-top: 4px;
-      text-align: right;
-    }
+        #input {
+          flex: 1;
+          display: flex;
+          padding: 0.6rem;
+          margin-left: 7px;
+          margin-right: 7px;
+          font-size: 14px;
+          border-radius: 6px;
+          border: none;
+          background-color: #2c2c2c;
+          color: white;
+        }
 
-    .input-bar {
-      display: flex;
-      flex-direction: column;
-      padding: 10px 14px;
-      padding-right: 30px;
-      background-color:rgb(38, 35, 35);
-      border-top: 1px solid #333;
-    }
+        #input::placeholder {
+          color: #b0abab;
+        }
 
-    .chat-input-container {
-      display: flex;
-      align-items: center;
-      background-color: #1e1e1e;
-      border: 1px solid #3c3c3c;
-      border-radius: 6px;
-      padding: 6px 8px;
-      width: 100%;
-    }
+        button {
+          padding: 0.6rem 1rem;
+          background-color: #dae2e6;
+          color: rgb(0, 0, 0);
+          border: none;
+          border-radius: 15px;
+          cursor: pointer;
+          font-weight: bold;
+          margin-right: 7px;
+        }
 
-    .chat-input-container input[type="text"] {
-      flex: 1;
-      background-color: transparent;
-      border: none;
-      outline: none;
-      font-size: 14px;
-      color: white;
-      padding-left: 6px;
-    }
+        button:hover {
+          background-color: #a2a2a2;
+        }
 
-    .chat-input-container .icon,
-    .chat-input-container .send-btn,
-    .chat-input-container .mic-btn {
-      font-size: 18px;
-      color: white;
-      margin: 0 10px;
-      cursor: pointer;
-      transition: color 0.2s ease;
-    }
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
 
-    .send-arrow {
-      display: inline-block;
-      transform: rotate(45deg);
-      transition: transform 0.2s ease;
-    }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
 
-    .send-btn:hover .send-arrow {
-      transform: translateX(3px) rotate(45deg);
-    }
+        #footer {
+          text-align: center;
+          font-size: 13px;
+          font-weight: bold;
+          color: #c0c0c0;
+          padding: 2px 0 15px 0;
+          margin-bottom: 10px;
+          margin-top: 3px;
+        }
+      </style>
+    </head>
 
-    .search-box-bottom {
-      padding: 8px;
-      border-radius: 6px;
-      background: #333;
-      border: none;
-      color: white;
-      font-size: 14px;
-      width: 100%;
-    }
-  </style>
-</head>
-<body>
- 
+    <body>
+      <div id="chat"></div>
 
-  <div class="main-container">
-    <header>
-      🤖 Chat Assistant
-    </header>
-
-    <div class="chat-container" id="chat"></div>
-
-    <div class="input-bar">
-      <div class="chat-input-container">
-        <label for="file-upload" class="icon">📎</label>
-        <input type="file" id="file-upload" style="display: none" />
-        <input type="text" id="input" placeholder="Ask your coding question..." onkeydown="handleKey(event)" />
-        <span class="mic-btn" onclick="startVoice()">🎤</span>
-        <span class="send-btn" onclick="send()">
-          <span class="send-arrow">➤</span>
-        </span>
+      <div id="input-area">
+        <input type="text" id="input" placeholder="Ask something..." />
+        <button onclick="send()">Send</button>
       </div>
-    </div>
-  </div>
 
-  <script>
-    const vscode = acquireVsCodeApi();
-    const chat = document.getElementById("chat");
-    const input = document.getElementById("input");
-    let chatHistory = [];
+      <div id="footer">Project by Patil Rameshwar </div>
 
-    function addMessage(message, sender) {
-      const msgDiv = document.createElement("div");
-      msgDiv.className = "message " + sender;
+      <script>
+        const vscode = acquireVsCodeApi();
+        const chat = document.getElementById('chat');
+        const input = document.getElementById('input');
+        let loadingElem = null;
 
-      const msgText = document.createElement("span");
-      msgText.textContent = message;
+        function appendMessage(text, sender) {
+          const message = document.createElement('div');
+          message.className = 'message ' + sender;
+          message.textContent = text;
+          chat.appendChild(message);
+          chat.scrollTop = chat.scrollHeight;
+        }
 
-      const timestamp = document.createElement("div");
-      timestamp.className = "timestamp";
-      timestamp.textContent = new Date().toLocaleTimeString([], {
-        hour: '2-digit', minute: '2-digit'
-      });
+        function showLoading() {
+          loadingElem = document.createElement('div');
+          loadingElem.id = 'loading';
+          loadingElem.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+          chat.appendChild(loadingElem);
+          chat.scrollTop = chat.scrollHeight;
+        }
 
-      msgDiv.appendChild(msgText);
-      msgDiv.appendChild(timestamp);
+        function hideLoading() {
+          if (loadingElem) {
+            loadingElem.remove();
+            loadingElem = null;
+          }
+        }
 
-      chat.appendChild(msgDiv);
-      chat.scrollTop = chat.scrollHeight;
+        function send() {
+          const value = input.value.trim();
+          if (!value) return;
+          appendMessage(value, 'user');
+          input.value = '';
 
-      chatHistory.push({ sender, message });
-    }
+          showLoading();
+          vscode.postMessage({ command: 'ask', text: value });
+        }
 
-    function send() {
-      const msg = input.value.trim();
-      if (msg === "") return;
-      addMessage(msg, "user");
-      vscode.postMessage({ command: 'ask', text: msg });
-      input.value = "";
-    }
+        window.addEventListener('message', (event) => {
+          const message = event.data;
+          if (message.type === 'response') {
+            hideLoading();
+            appendMessage(message.text, 'assistant');
+          }
+        });
+      </script>
+    </body>
 
-    function handleKey(event) {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        send();
-      }
-    }
+    </html>
 
-    function setQuickPrompt(prompt) {
-      input.value = prompt;
-      input.focus();
-    }
-
-    function startVoice() {
-      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-      recognition.lang = 'en-US';
-      recognition.onresult = function(event) {
-        input.value = event.results[0][0].transcript;
-        send();
-      };
-      recognition.start();
-    }
-
-    window.addEventListener('message', (event) => {
-      const message = event.data;
-      if (message.type === 'response') {
-        addMessage(message.text, 'assistant');
-      }
-    });
-  </script>
-</body>
-</html>
     `;
   }
 }
 
-function deactivate() {}
+function deactivate() { }
 
 module.exports = {
   activate,
