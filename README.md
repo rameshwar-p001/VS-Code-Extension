@@ -1,4 +1,4 @@
-# Chat Assistant VS-Code Extension
+# Chat Assistant VS-Code Extension 
 
 This is a VS Code sidebar extension that allows you to chat with a locally running LLM using Ollama. It supports prompt sending, response display, and a nice chat-style interface.
 
